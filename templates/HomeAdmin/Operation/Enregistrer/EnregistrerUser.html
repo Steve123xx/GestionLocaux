@@ -1,0 +1,109 @@
+{% extends 'HomeAdmin/Home.html' %}
+{% block base %}
+    <div class="form-content">
+        <h1 style="color:#fff">Enregistrer Utilisateur<br><i class="fa-sharp fa-solid fa-floppy-disk fa-2x"></i></h1>
+        <hr>
+        <div class="valide">
+            <h2 style="color:black;font-size:27px"  class="val">{{valide}}.<i class='fas fa-thumbs-up'></i></h2>
+            <a class="okay"href="">Okay</a>
+        </div>
+        <form enctype="multipart/form-data" action="{% url 'Login:Operations' nom o5 %}" method='post'class="login">
+            {% csrf_token %}
+            {{login.as_p}}
+            <input type="submit" value="Enregistrer"  class="submit" id="submit">
+            <a href="" class="Retour">Changer</a>
+        </form>
+        <button class="btn suiv suiv1">suivant</button>
+        <button class="btn sui">.<i class='fas fa-thumbs-up'></i></button>
+    </div>
+    <script>
+        const sui=document.querySelector(".suiv");
+        const sui1=document.querySelector(".sui");
+        const pass1=document.querySelector("#id_password");
+        const nom=document.querySelector("input:nth-of-type(1)");
+        const retour=document.querySelector(".Retour");
+        const pass2=document.createElement("input");
+        const p1=document.createElement("p");
+        p1.className="p1";
+        pass2.className="password2";
+        pass2.type="password";
+
+        document.querySelector(".submit").style.visibility="hidden"
+        sui1.style.visibility="hidden";
+        let regle=/[a-zA-Z0-9]{5,}/g;
+        let user2="{{valide}}";
+        if(user2){
+            const form=document.querySelector("form");
+            const v=document.querySelector(".valide");
+            form.style.visibility="hidden";
+            v.classList.replace("valide","valide1");
+            sui.style.visibility="hidden";
+        }
+        else{
+            let user1="{{user}}";
+            sui.addEventListener("click",()=>{
+                if(regle.test(pass1.value)){
+                    if(pass1.value!=""){
+                        for(var i=0;i<user1.length;i++){
+                            if(user1[i]==pass1.value){
+                                sui.style.visibility="hidden";
+                                p1.innerHTML=`Voulez vous vraiment supprimer l'utilisateur ${user1[i]}?`;
+                                p1.classList.add("p11");
+                                p1.style.top="-160px";
+                                p1.style.color="gold";
+                                choix.classList.add("visible");
+                                break;
+                            }
+                            else{
+                                p1.innerHTML="Cet utilisateur n'a pas été enregistrer!! ";
+                                p1.classList.add("p11");
+                                p1.style.top="-20px";
+                                p1.style.marginBottom="-50px";
+                                p1.style.color="green";
+                            }
+                        }
+                        document.querySelector(".login").appendChild(pass2);
+                        pass1.classList.add("suive");
+                        pass2.classList.add("suive1");
+                        sui.classList.replace("btn","btn-1");
+                        document.querySelector(".login").appendChild(p1);
+                        p1.innerHTML="Re-entrez le mot de passe";
+                        p1.classList.add("p11");
+                        p1.style.color="blue";
+                        sui.style.visibility="hidden"
+                        sui1.classList.replace("btn","btn-2");
+                        sui1.style.visibility="visible";
+                    }
+                }
+                else{
+                    p1.innerHTML="votre mot de passe dois contenir 5 caracteres [a-zA-Z0-9]";
+                    p1.style.color="red";
+                    p1.style.fontSize="medium"
+                    p1.classList.add("p11");
+                    p1.style.top="-40px"
+                    p1.style.marginBottom="-40px"
+                    document.querySelector(".login").appendChild(p1);
+                }
+                
+                
+            })
+
+            sui1.addEventListener("click",()=>{
+                if(pass1.value==pass2.value && pass1.value!="" ){
+                    p1.innerHTML="";
+                    sui1.style.visibility="hidden";
+                    retour.classList.add("Retour1");
+                    document.querySelector(".submit").classList.replace("submit","enrg");
+                    document.querySelector(".enrg").style.visibility="visible";
+                    document.querySelector(".enrg").style.width="44%";
+                }
+                else{
+                    p1.innerHTML="Invalide!!";
+                    p1.style.color="red";
+                    retour.classList.add("Retour1");
+                }
+                
+            })
+        }
+    </script>
+{% endblock  %}

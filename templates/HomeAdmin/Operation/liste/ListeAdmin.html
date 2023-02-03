@@ -1,0 +1,24 @@
+
+{% extends 'HomeAdmin/Home.html' %}
+{% load static %}
+{% block base %}
+    <h1>Liste des administrateurs </h1>
+    <div class="contentListe contentListe-user">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th >Photo Profile</th>
+                    <th >Nom Administrateur</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in admin %}
+                    <tr class="tr1">
+                        <td><img src="{% static u.profile %}" class="imgListe" alt=""/></td>
+                        <td>{{u.AdminName}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock  %}

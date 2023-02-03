@@ -1,0 +1,83 @@
+{% extends 'HomeAdmin/Home.html' %}
+{% block base %}
+    <div class="form-content">
+        <h1 style="color:#fff">Supprimer Utilisateurs <br><i class="fa-sharp fa-solid fa-trash fa-2x"></i></h1>
+        <hr>
+        <div class="valide">
+            <h2 style="color:black;font-size:27px" class="val">{{valide}}.<i class='fas fa-thumbs-up'></i></h2>
+            <a class="okay" href="">Okay</a>
+        </div>
+        <form enctype="multipart/form-data" action="{% url 'Login:Operations' nom o7 %}" method='post'class="login">
+            {% csrf_token %}
+            {{login.as_p}}
+            <div class="choix">
+                <a href="" class="submit1">Non</a>
+                <input type="submit" value="Oui"  class="submit" id="submit">
+            </div>
+        </form>
+        <button class="btn suiv suiv1">suivant</button>
+        <p class="p1"><p>
+    </div>
+    <script>
+        const pass1=document.querySelector("input[type='text']");
+        const sui=document.querySelector(".suiv");
+        const p1=document.querySelector(".p1");
+        const choix=document.querySelector(".choix");
+        let user2="{{valide}}";
+        if(user2){
+            const form=document.querySelector("form");
+            const v=document.querySelector(".valide");
+            form.style.visibility="hidden";
+            v.classList.replace("valide","valide1");
+            sui.style.visibility="hidden";
+        }
+        else{
+            let user1="{{user}}";
+            user1=user1.match(/[\w\s]+/g);
+            if(user1){
+                sui.addEventListener("click",()=>{
+                    if(pass1.value){
+                        
+                        for(var i=0;i<user1.length;i++){
+                            if(user1[i]==pass1.value){
+                                sui.style.visibility="hidden";
+                                p1.innerHTML=`Voulez vous vraiment supprimer l'utilisateur ${user1[i]}?`;
+                                p1.classList.add("p11");
+                                p1.style.top="-160px";
+                                p1.style.color="gold";
+                                choix.classList.add("visible");
+                                break;
+                            }
+                            else{
+                                p1.innerHTML="Cet utilisateur n'a pas été enregistrer!! ";
+                                p1.classList.add("p11");
+                                p1.style.top="-20px";
+                                p1.style.marginBottom="-50px";
+                                p1.style.color="green";
+                            }
+                        }
+                        
+                    }
+                    else{
+                        p1.innerHTML="SVP Entrez le nom d'un utilisateur!";
+                        p1.classList.add("p11");
+                        p1.style.top="-20px";
+                        p1.style.marginBottom="-50px";
+                        p1.style.color="red";
+                    }
+                });
+            }
+            else{
+                const ok=document.querySelector(".okay");
+                const val=document.querySelector(".val");
+                const form=document.querySelector("form");
+                const v=document.querySelector(".valide");
+                val.innerHTML="Aucun utilisateur n'a été enregistrer<br>impossible d'éffectuer une suppression"
+                form.style.visibility="hidden";
+                v.classList.replace("valide","valide1");
+                sui.style.visibility="hidden";
+                ok.style.visibility="hidden";
+            }   
+        }
+    </script>
+{% endblock  %}

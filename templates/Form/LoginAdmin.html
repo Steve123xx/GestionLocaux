@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href="{% static 'cssLogin/stylesLogin.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <title>LoginAdmin</title>
+</head>
+<body>
+    <main class="content">
+        <div class="form-content">
+            <div id="profil"></div>
+            <h1>Log-in Admin <i class="fas fa-user-tie"></i></h1>
+            <hr>
+            <form enctype="multipart/form-data" action="{% url 'Login:LoginAdmin'  %}" method='post'class="login">
+                {% csrf_token %}
+                {{login}}
+                <input type="submit" value="login"  id="submit">
+            </form>
+            <p><a href="{% url 'Login:LoginUser'  %}"> Log-in as a user <i class="fas fa-user-tie"></i></a></p>
+        </div>
+    </main>
+</body>
+</html>

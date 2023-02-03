@@ -1,0 +1,75 @@
+{% extends 'HomeAdmin/Home.html' %}
+{% block base %}
+<div class="form-content">
+    <h1 style="color:#fff">Modifier Administrateurs<br> <i class="fa-solid fa-pen-to-square fa-2x"></i></h1>
+    <hr>
+    <div class="verification">
+        <h2 class="titre" style="color:#fff;text-align: center;">Verification de l'Administrateur a modifier</h2>
+        <form action="" class="verif">
+            <label for="nom">Nom de l'Administrateur</label>
+            <input type="text" id="nom">
+            <label for="pass">Mot de passe</label>
+            <input type="password" id="pass">
+        </form>
+        <p class="result_Verification" style="color:red;font-size:20px;text-align:center;"></p>
+        <button>verifier</button>
+        
+    </div>
+    <div class="Modif_content">
+        <div class="valide">
+            <h2 style="color:black;font-size:27px"  class="val">{{valide}}.<i class='fas fa-thumbs-up'></i></h2>
+            <a class="okay"href="">Okay</a>
+        </div>
+        <form enctype="multipart/form-data" action="{% url 'Login:Operations' nom o5 %}" method='post'class="login">
+            {% csrf_token %}
+            {{login.as_p}}
+            <input type="submit" value="Enregistrer"  class="submit" id="submit">
+            <a href="" class="Retour">Changer</a>
+        </form>
+        <button class="btn suiv suiv1">suivant</button>
+        <button class="btn sui">.<i class='fas fa-thumbs-up'></i></button>
+    </div>
+</div>
+<script>
+    var user_name="{{admin_name}}";
+    var user_pass="{{admin_pass}}";
+    user_name=user_name.match(/[\w\s]+/g);
+    user_pass=user_pass.match(/[\w]+/g);
+    const input1=document.querySelector(".verif input[type='text']");
+    const input2=document.querySelector("#pass");
+    const Modif_content=document.querySelector(".Modif_content");
+    const ver=document.querySelector(".verification");
+    const check=document.querySelector(".verification button");
+    const p=document.querySelector(".result_Verification");
+
+    check.addEventListener("click",()=>{
+        var u=false,e=0;
+        for(var i=0;i<user_name.length;i++)
+        {
+            if(user_name[i]==input1.value)
+            {
+                u=true;
+                e=i;
+                break;
+            }
+        }
+        if(u)
+        {
+            if(user_pass[e]==input2.value)
+            {
+                ver.style.visibility="hidden";
+                Modif_content.classList.replace("Modif_content","Modif_content1");
+            }
+            else
+            {
+                p.innerHTML="Mot de passe invalide";
+            }
+        }
+        else
+        {
+            p.innerHTML="Ce nom n'existe pas";
+            check.innerHTML="<a href=''>verifier</a>";
+        }
+    });
+</script>
+{% endblock  %}

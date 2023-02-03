@@ -1,0 +1,23 @@
+{% extends 'HomeAdmin/Home.html' %}
+{% load static %}
+{% block base %}
+    <h1>Liste des utilisateurs </h1>
+    <div class="contentListe contentListe-user">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th >Photo Profile</th>
+                    <th >Nom utilisateur</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in user %}
+                    <tr class="tr1">
+                        <td><img src="{% static u.profile %}" class="imgListe" alt=""/></td>
+                        <td>{{u.UserName}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock  %}
